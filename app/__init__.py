@@ -27,10 +27,12 @@ def create_app(config_class="app.config.DevelopmentConfig"):
     from app.routes.event_routes import event_bp
     from app.routes.booking_routes import booking_bp
     from app.routes.user_routes import user_bp
+    from app.routes.root_routes import root_bp
 
     app.register_blueprint(auth_bp, url_prefix="/auth")
     app.register_blueprint(event_bp, url_prefix="/events")
     app.register_blueprint(booking_bp, url_prefix="/bookings")
     app.register_blueprint(user_bp, url_prefix="/user")
+    app.register_blueprint(root_bp, url_prefix="/")
 
     return app

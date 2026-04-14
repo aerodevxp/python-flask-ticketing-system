@@ -1,8 +1,8 @@
 """Initial schematics with users, events, and bookings
 
-Revision ID: 79fc08a2b265
+Revision ID: 4f6332bc38c2
 Revises: 
-Create Date: 2026-04-13 19:23:38.374596
+Create Date: 2026-04-13 20:17:28.149853
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '79fc08a2b265'
+revision = '4f6332bc38c2'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -42,8 +42,8 @@ def upgrade():
     sa.Column('event_id', sa.Integer(), nullable=False),
     sa.Column('statut', sa.String(length=20), nullable=True),
     sa.Column('date_reservation', sa.DateTime(), nullable=True),
-    sa.ForeignKeyConstraint(['event_id'], ['events.id'], ),
-    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
+    sa.ForeignKeyConstraint(['event_id'], ['events.id'], ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###
