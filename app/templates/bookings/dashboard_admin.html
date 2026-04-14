@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Tableau de bord Admin - TicketBooking{% endblock %}
+
+{% block content %}
+<h2>🛠️ Administration</h2>
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card bg-primary text-white">
+            <div class="card-body">
+                <h5>📅 Événements</h5>
+                <h2>{{ events|length }}</h2>
+                <a href="{{ url_for('event.create') }}" class="btn btn-light">Créer un événement</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card bg-success text-white">
+            <div class="card-body">
+                <h5>🎫 Réservations Totales</h5>
+                <h2>{{ all_bookings|length }}</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mt-4">
+    <h5>📋 Toutes les Réservations</h5>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>User</th>
+                <th>Événement</th>
+                <th>Date réservation</th>
+                <th>Statut</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in all_bookings %}
+            <tr>
+                <td>{{ booking.id }}</td>
+                <td>{{ booking.user.nom }}</td>
+                <td>{{ booking.event.titre }}</td>
+                <td>{{ booking.date_reservation.strftime('%d/%m/%Y %H:%M') }}</td>
+                <td><span class="badge bg-{{ 'success' if booking.statut == 'confirmé' else 'danger' }}">{{ booking.statut }}</span></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

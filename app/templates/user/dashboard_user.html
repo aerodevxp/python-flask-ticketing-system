@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Mon Tableau de bord - TicketBooking{% endblock %}
+
+{% block content %}
+<h2>👋 Bonjour, {{ current_user.nom }} !</h2>
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <h5>🎫 Mes Réservations Confirmées</h5>
+        
+        {% if bookings %}
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Événement</th>
+                        <th>Date</th>
+                        <th>Statut</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for booking in bookings %}
+                    <tr>
+                        <td>{{ booking.id }}</td>
+                        <td>{{ booking.event.titre }}</td>
+                        <td>{{ booking.event.date.strftime('%d/%m/%Y') }}</td>
+                        <td><span class="badge bg-success">Confirmé</span></td>
+                        <td>
+                            <form action="{{ url_for('booking.cancel', id=booking.id) }}" method="POST">
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Annuler cette réservation ?')">Annuler</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="alert alert-info">
+    Vous n'avez pas encore réservé d'événement. <a href="{{ url_for('event.index') }}">Voir tous les événements</a>
+</div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Modifier l'événement - TicketBooking{% endblock %}
+
+{% block content %}
+<div class="card shadow">
+    <div class="card-header bg-warning text-white">
+        <h4>✏️ Modifier l'événement</h4>
+    </div>
+    <div class="card-body">
+        <form method="POST">
+            <div class="mb-3">
+                <label for="titre" class="form-label">Titre *</label>
+                <input type="text" class="form-control" id="titre" name="titre" value="{{ event.titre }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="date" class="form-label">Date et heure *</label>
+                <input type="datetime-local" class="form-control" id="date" name="date" value="{{ event.date.strftime('%Y-%m-%dT%H:%M') }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" id="description" name="description" rows="4">{{ event.description }}</textarea>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="capacite" class="form-label">Capacité *</label>
+                    <input type="number" class="form-control" id="capacite" name="capacite" value="{{ event.capacite }}" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="categorie" class="form-label">Catégorie</label>
+                    <select class="form-select" id="categorie" name="categorie">
+                        <option value="concert" {% if event.categorie == 'concert' %}selected{% endif %}>Concert</option>
+                        <option value="spectacle" {% if event.categorie == 'spectacle' %}selected{% endif %}>Spectacle</option>
+                        <option value="conference" {% if event.categorie == 'conference' %}selected{% endif %}>Conférence</option>
+                        <option value="sport" {% if event.categorie == 'sport' %}selected{% endif %}>Sport</option>
+                        <option value="autre" {% if event.categorie == 'autre' %}selected{% endif %}>Autre</option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-warning">Modifier</button>
+            <a href="{{ url_for('event.view', id=event.id) }}" class="btn btn-secondary">Annuler</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Mon Profil - TicketBooking{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-header bg-info text-white">
+                <h4>👤 Mon Profil</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="nom" class="form-label">Nom complet</label>
+                        <input type="text" class="form-control" id="nom" name="nom" value="{{ user.nom }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Email (immodifiable)</label>
+                        <input type="email" class="form-control" value="{{ user.email }}" disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Rôle</label>
+                        <input type="text" class="form-control" value="{{ user.role }}" disabled>
+                    </div>
+                    <button type="submit" class="btn btn-info">Mettre à jour</button>
+                </form>
+                <hr>
+                <h5>Sécurité</h5>
+                <button class="btn btn-outline-danger">Changer le mot de passe</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
