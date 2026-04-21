@@ -8,5 +8,4 @@ root_bp = Blueprint("root", __name__, url_prefix="")
 
 @root_bp.route("/")
 def gotoevents():
-    print("bigpoe")
     return redirect(url_for("event.index"))
