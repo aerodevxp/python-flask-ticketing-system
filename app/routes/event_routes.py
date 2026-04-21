@@ -50,7 +50,7 @@ def create():
 def view(id):
     #view details of an event
     event = Event.query.get_or_404(id)
-    reservations = Booking.query.filter_by(event_id=id).all()
+    reservations = Booking.query.filter_by(event_id=id).filter(Booking.statut != 'annulé').all()
     places_dispo = event.capacite - len(reservations)
     
     return render_template("events/view.html", event=event, places_dispo=places_dispo)
@@ -66,7 +66,7 @@ def edit(id):
     
     if request.method == "POST":
         event.titre = request.form.get("titre")
-        event.date = datetime.strptime(request.form.get("date"), "%Y-%m-%d")
+        event.date = datetime.strptime(request.form.get("date"), "%Y-%m-%dT%H:%M")
         event.description = request.form.get("description")
         event.capacite = int(request.form.get("capacite"))
         event.categorie = request.form.get("categorie")
